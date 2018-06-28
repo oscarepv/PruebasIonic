@@ -12,6 +12,8 @@ import { FilePath } from '@ionic-native/file-path';
 import { AngularFireList, AngularFireDatabase } from 'angularfire2/database';
 import {  storage ,initializeApp } from 'firebase';
 import firebase from 'firebase';
+import * as $ from "jquery";
+import * as xml2js from 'xml2js';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyCpTTC60cKaQ2K_N4XX2GUWGJeyYjKcBX4",
@@ -51,8 +53,90 @@ export class HomePage {
   }
 
   enviarSMS(){
+    let wsUrl = "https://www.w3schools.com/xml/tempconvert.asmx?op=CelsiusToFahrenheit";
+
+    let soapRequest =
+      '<?xml version="1.0" encoding="utf-8"?>\
+      <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\
+        <soap:Body>\
+          <CelsiusToFahrenheit xmlns="https://www.w3schools.com/xml/">\
+            <Celsius>-17.7778</Celsius>\
+          </CelsiusToFahrenheit>\
+        </soap:Body>\
+      </soap:Envelope>';
+
+    /*let wsUrl = "http://192.168.0.42:8080/UbicacionES/UbicacionES?tester";
+    let soapRequest =
+      '<?xml version="1.0" encoding="UTF-8"?>\
+      <S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">\
+          <SOAP-ENV:Header/>\
+          <S:Body>\
+              <ns2:parroquias xmlns:ns2="http://ws.codigos.com/">\
+                <zona>04</zona>\
+              </ns2:parroquias>\
+          </S:Body>\
+      </S:Envelope>';*/
+
+    /* let wsUrl = "http://wsnewideas1.gerenciall.com/service.asmx?op=HelloWorld";
+     let soapRequest =
+       '<?xml version="1.0" encoding="utf-8"?>\
+       <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\
+         <soap:Body>\
+           <HelloWorld xmlns="http://tempuri.org/" />\
+         </soap:Body>\
+       </soap:Envelope>';*/
+
+
+    $.ajax({
+      contentType: "text/xml",
+      dataType: "text",
+      url: wsUrl,
+      type: 'POST',
+      data: soapRequest,
+
+
+      success: (data) => {
+        //this.viewMessage(JSON.stringify(data));
+        console.log('Hmmm we had a success response', data);
+
+
+
+        //console.log(xml2js.toJson(data));
+
+        /*xml2js.parseString(data, { trim:true, explicitArray: false }, (error, result) => {
+          if (error) {
+            throw new Error(error);
+          } else {
+            console.log(result);
+          }
+        });*/
+
+
+        console.log(data.toString());
+         xml2js.parseString(data.toString(), function (err, result) {
+
+           console.log(result["soap:Envelope"]["soap:Body"]["0"].CelsiusToFahrenheitResponse["0"].CelsiusToFahrenheitResult[0]);
+         });
+
+        /*xml2js.parseString(data, ((result) => {
+          console.log(result);
+          return result;
+        }));
+        /*xml2js.parseString(data, function (err, result) {
+          console.log(result);
+        });*/
+
+        //this.convertXmltoJson(data);
+      },
+      error: (err) => {
+        //this.viewMessage(JSON.stringify(err));
+        console.log('Error :(', err);
+      }
+    });
+
   //this.sms.send('0984864415', 'Hello world!');
   }
+
   enviarNoti(){
   	let obj: any = {
   		headings: {en:"Seguridad soy yo"},
