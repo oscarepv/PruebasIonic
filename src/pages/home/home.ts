@@ -31,9 +31,12 @@ export const firebaseConfig = {
 })
 export class HomePage {
   contenidoFoto;
+<<<<<<< HEAD
 
   respuesta: any = null;
 
+=======
+>>>>>>> 79dae5559dc69fd8ca76ad372321f4b6eff3741a
   constructor(public navCtrl: NavController,
               private device: Device,
               private network: Network,
@@ -53,6 +56,7 @@ export class HomePage {
   	console.log('no hay red');
   }
 
+<<<<<<< HEAD
   this.enviarSMS();
 
   }
@@ -64,6 +68,22 @@ export class HomePage {
 
   enviarSMS(){
 
+=======
+  }
+
+  enviarSMS(){
+    let wsUrl = "https://www.w3schools.com/xml/tempconvert.asmx?op=CelsiusToFahrenheit";
+
+    let soapRequest =
+      '<?xml version="1.0" encoding="utf-8"?>\
+      <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\
+        <soap:Body>\
+          <CelsiusToFahrenheit xmlns="https://www.w3schools.com/xml/">\
+            <Celsius>-17.7778</Celsius>\
+          </CelsiusToFahrenheit>\
+        </soap:Body>\
+      </soap:Envelope>';
+>>>>>>> 79dae5559dc69fd8ca76ad372321f4b6eff3741a
 
     /*let wsUrl = "http://192.168.0.42:8080/UbicacionES/UbicacionES?tester";
     let soapRequest =
@@ -87,6 +107,7 @@ export class HomePage {
        </soap:Envelope>';*/
 
 
+<<<<<<< HEAD
 
     let wsUrl = "https://www.w3schools.com/xml/tempconvert.asmx?op=CelsiusToFahrenheit";
 
@@ -100,6 +121,8 @@ export class HomePage {
         </soap:Body>\
       </soap:Envelope>';
 
+=======
+>>>>>>> 79dae5559dc69fd8ca76ad372321f4b6eff3741a
     $.ajax({
       contentType: "text/xml",
       dataType: "text",
@@ -109,6 +132,7 @@ export class HomePage {
 
 
       success: (data) => {
+<<<<<<< HEAD
 
         //this.viewMessage(JSON.stringify(data));
         console.log('Hmmm we had a success response', data);
@@ -152,6 +176,49 @@ export class HomePage {
   }
 
 
+=======
+        //this.viewMessage(JSON.stringify(data));
+        console.log('Hmmm we had a success response', data);
+
+
+
+        //console.log(xml2js.toJson(data));
+
+        /*xml2js.parseString(data, { trim:true, explicitArray: false }, (error, result) => {
+          if (error) {
+            throw new Error(error);
+          } else {
+            console.log(result);
+          }
+        });*/
+
+
+        console.log(data.toString());
+         xml2js.parseString(data.toString(), function (err, result) {
+
+           console.log(result["soap:Envelope"]["soap:Body"]["0"].CelsiusToFahrenheitResponse["0"].CelsiusToFahrenheitResult[0]);
+         });
+
+        /*xml2js.parseString(data, ((result) => {
+          console.log(result);
+          return result;
+        }));
+        /*xml2js.parseString(data, function (err, result) {
+          console.log(result);
+        });*/
+
+        //this.convertXmltoJson(data);
+      },
+      error: (err) => {
+        //this.viewMessage(JSON.stringify(err));
+        console.log('Error :(', err);
+      }
+    });
+
+  //this.sms.send('0984864415', 'Hello world!');
+  }
+
+>>>>>>> 79dae5559dc69fd8ca76ad372321f4b6eff3741a
   enviarNoti(){
   	let obj: any = {
   		headings: {en:"Seguridad soy yo"},
