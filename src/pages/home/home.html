@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!--
+  <button ion-button color="secondary" (click)='enviarSMS()'>Enviar SMS</button>
+
+  -->
+  <button ion-button color="danger" (click)='soap()'>SOAP</button>
+  <!--
+  <button ion-button color="danger" (click)='recuperFotoGelary()'>Foto de galeria</button>
+  <button ion-button color="danger" (click)='tomarFoto()'>Foto de galeria</button>
+  <button ion-button color="danger" (click)='takePhoto()'>Take Photo</button>
+
+  <img src='{{ contenidoFoto }}' alt=''>
+
+  -->
+
+  <p *ngIf="respuesta != null">{{ respuesta }}</p>
+
+
+</ion-content>
